@@ -1,0 +1,38 @@
+Team IDK
+4003.242.06
+Project: Part 4 - design.txt
+Due - 2.20.2012
+
+Team IDK:
+	Jenny Zhen (jxz6853@rit.edu)
+    Neil Zimmerman (nxz3937@gmail.com)
+
+01. Strategies
+Our Part 4 module is implemented based on a priority queue. A list of valid moves is made 
+every time a new move needs to be made. Each move is then evaluated based on their priority 
+that is relevant to whether it improves our player's chances of winning or the other player's 
+chance of winning. A score of 0 to 4 is given, with 0 being the least helpful to our player 
+and 4 being the most helpful to our player. Basically, the scores are given as follows:
+	0 - is a move that connects our player with a route score of 2; or connects the other 
+			player to a power station.
+	1 - is a move that pushes our player to the edge of the board; or pushes the other player 
+			to a power station.
+	2 - is a neutral move that doesn't have an effect on either players.
+	3 - is a move that pushes the other player to the edge of the board; or pushes our player 
+			to a power station.
+	4 - is a move that connects the other player with a route score of 2; or connects our 
+			player to a power station.
+Our strategy is both offensive and defensive, based on whichever move has the highest priority 
+on the queue.
+
+02. Data Structure
+All of the original data structure from part 3 was kept. However, functions were added to implement 
+the priority queue inside the MakeMove() class. This includes: createPriorityQueue() to create the 
+priority queue; priorityZeroorFour() to determine if the priority of the move is of 0 or 4 priority; 
+push_edge() and push_ps() to determine if the move is of 1 or 3 priority. The priority queue itself 
+is stored as a list of lists of moves. The index of the list determines whether the list of moves is 
+of 0 to 4 priority, i.e. the list of moves at the index of 0 has a priority of 0.
+
+03. Algorithm
+The algorithms haven't been changed if at all. The priority queue algorithm was kept as the strategy 
+from the start.

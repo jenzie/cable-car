@@ -1,0 +1,54 @@
+Team IDK
+4003.242.06
+Project: Part 2 - design.txt
+Due - 1.25.2012
+
+Team IDK:
+	Jenny Zhen (jxz6853@rit.edu)
+    Neil Zimmerman (nxz3937@gmail.com)
+
+Our Part 2 module is based of of the Part 1 done by Neil Zimmerman. This part 1
+included 4 different files: __init__.py, carData.py, playerData.py, and tileData.py.
+The only file that was modified for Part 2 is __init__.py. The only modifications made
+to this file were in the definition of the move() function that is called by the engine.
+This function simply creates a MakeMove() instance, and retrieves details about the
+next move that will be made from the object.
+
+The MakeMove class is defined in the new file makeMoves.py. When initializing an instance
+of MakeMove, the program must pass it the current PlayerData configuration. This config
+is all that our new class needs to generate the next valid move.
+
+MakeMove begins by generating a list of all valid spaces on the board, where a tile can
+be placed (MakeMove.validPos); valid positions are represented as tuples (row,col). Valid
+positions are empty border spaces, or empty neighbors of placed tiles. We determine these
+by first checking each border space; if that tile is empty it is a valid position, so we
+add it to MakeMove.validPos. We then check each space on the board. For each occupied space
+on the board, we add each of it's unoccupied neighbors to MakeMove.validPos. We then remove
+duplicate positions.
+
+From this list of positions, we generate a list of all possible moves (MakeMove.allMoves);
+moves are represented as dictionaries with keys: 'position' (tuple (row,col)), 'tileName'
+(char a-j), and 'rotation' (int 0-3). We then iterate through this list, checking if each
+move is valid. Each valid move is pushed into a list of valid moves (MakeMove.validMoves).
+
+A move is invalid if it creates a path of length one, when the tile could be placed somewhere
+else or with some other rotation that would not create a path of length one. It would also
+be invalid if it was placed in a space that is occupied, or placed in a non-border space with
+no adjacent neighbor, but we don't have to worry about invalid positioning, because we only
+generate moves for valid positions. Because of this, we only have to check if border tiles are
+valid. To do this, we iterate through each move and check for the following conditions:
+    - north border spaces connect north to north
+    - east border spaces connect east to east
+    - south border spaces connect south to south
+    - west border spaces connect west to west
+    - corner space connect the adjacent borders
+If any of these conditions are met, the move is invalid and it will not be added to the list
+MakeMove.validMoves.
+
+At the moment we are simply returning the valid move at the top of the list MakeMove.validMoves
+as the next move to be made. However, the way our class is designed facilitates the addition
+of future strategy implementation. This would be implemented in the MakeMove.createMove() function.
+
+To test that this module worked properly, we ran it a multitude of times, using different
+tiles as a starting point. The engine never kicked our player, indicating that it never
+generated an error or made an invalid move.
